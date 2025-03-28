@@ -1,5 +1,6 @@
 import re
 from PyPDF2 import PdfReader
+from typing import List, Union
 
 class PDFTranscriptReader:
     def __init__(self, pdf_path):
@@ -45,10 +46,27 @@ class PDFTranscriptReader:
             })
         return self.messages
 
-    def filter_messages_by_speaker(self, target_speaker):
+    def filter_messages_by_speakers(self, target_speakers: Union[str, List[str]]) -> List[dict]:
         """
-        Filter messages for a given speaker.
+        Filter messages for one or more speakers.
+        
+        Args:
+            target_speakers: A single speaker name or a list of speaker names
+            
+        Returns:
+            List of messages from the specified speakers
         """
         if self.messages is None:
             self.parse_transcript()
-        return [msg for msg in self.messages if msg["speaker"].lower() == target_speaker.lower()]
+            
+        # Convert single speaker to list for consistent processing
+        if isinstance(target_speakers, str):
+            target_speakers = [target_speakers]
+            
+        # Convert all speakers to lowercase for case-insensitive comparison
+        target_speakers = [speaker.lower() for speaker in target_speakers]
+        
+        return [
+            msg for msg in self.messages 
+            if msg["speaker"].lower() in target_speakers
+        ]

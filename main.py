@@ -1,26 +1,30 @@
 import json
 from scripts.extract_pdf_text import PDFTranscriptReader
-from scripts.filter_questions_regex import extract_questions_from_messages_regex
+
+
+
+def extract_messages_from_pdf(pdf_path, target_speakers):
+    reader = PDFTranscriptReader(pdf_path)
+    messages = reader.filter_messages_by_speakers(target_speakers)
+    
+    # Save all messages to a single JSON file
+    output_filename = "data/transcript_messages.json"
+    with open(output_filename, "w", encoding="utf-8") as f:
+        json.dump(messages, f, indent=2, ensure_ascii=False) 
+         
+    return messages
+
 
 def main():
     pdf_path = "assets/Wobby AI Demo.pdf"
 
-    # TODO: use LLM to auto detect the speaker
-    # Set the speaker name of which you want to extract messages
-    target_speaker = "Tove Staaf"
-    
-    # Create PDF reader instance and process the transcript
-    pdf_reader = PDFTranscriptReader(pdf_path)
-    user_messages = pdf_reader.filter_messages_by_speaker(target_speaker)
-    
-    # Extract questions from the messages
-    questions = extract_questions_from_messages_regex(user_messages)
-    
-    # Save output to a JSON file
-    output_filename = "data/user_messages_questions.json"
-    with open(output_filename, "w", encoding="utf-8") as f:
-        json.dump(questions, f, indent=2, ensure_ascii=False)
-    
+    # TODO: use LLM to auto detect the speakers
+    # Set the speaker names of which you want to extract messages
+    target_speakers = ["Tove Staaf", "Bruno Pauwels"]
 
+    # Create PDF reader instance and process the transcript
+    extract_messages_from_pdf(pdf_path, target_speakers)
+    
+  
 if __name__ == "__main__":
     main()
