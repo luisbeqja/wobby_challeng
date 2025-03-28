@@ -1,6 +1,6 @@
 import json
-from tools.pdf_reader import PDFTranscriptReader
-
+from scripts.extract_pdf_text import PDFTranscriptReader
+from scripts.filter_questions_regex import extract_questions_from_messages_regex
 
 def main():
     pdf_path = "assets/Wobby AI Demo.pdf"
@@ -13,13 +13,14 @@ def main():
     pdf_reader = PDFTranscriptReader(pdf_path)
     user_messages = pdf_reader.filter_messages_by_speaker(target_speaker)
     
-    # Save output to a JSON file
-    output_filename = "data/user_messages.json"
-    with open(output_filename, "w", encoding="utf-8") as f:
-        json.dump(user_messages, f, indent=2, ensure_ascii=False)
+    # Extract questions from the messages
+    questions = extract_questions_from_messages_regex(user_messages)
     
-    print(f"Extracted {len(user_messages)} messages from speaker '{target_speaker}' saved to {output_filename}")
-
+    # Save output to a JSON file
+    output_filename = "data/user_messages_questions.json"
+    with open(output_filename, "w", encoding="utf-8") as f:
+        json.dump(questions, f, indent=2, ensure_ascii=False)
+    
 
 if __name__ == "__main__":
     main()
