@@ -24,7 +24,7 @@ def extract_questions(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """
     
     
-    model = genai.GenerativeModel('gemini-2.5-pro-exp-03-25')
+    model = genai.GenerativeModel('gemini-2.0-flash')
     response = model.generate_content(prompt)
 
     try:
@@ -44,14 +44,3 @@ def extract_questions(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
         print(f"Raw response: {response.text}")
     
     return []
-
-if __name__ == "__main__":
-    messages = [
-        {"speaker": "Bruno Pauwels", "timestamp": "01:00:00", "content": "Can, you can probably flatten it out into a few kind of things."},
-        {"speaker": "Alice Smith", "timestamp": "01:05:30", "content": "What do you think about the new design?"},
-        {"speaker": "John Doe", "timestamp": "01:10:15", "content": "We should review the proposal."},
-        {"speaker": "Bruno Pauwels", "timestamp": "01:15:45", "content": "Do you have any updates on the project?"}
-    ]
-    
-    extracted_questions = extract_questions(messages)
-    print(extracted_questions)
