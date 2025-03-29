@@ -1,7 +1,7 @@
 import json
 from scripts.extract_pdf_text import PDFTranscriptReader
 from scripts.filter_questions import extract_questions_from_messages_spacy, extract_questions_from_messages_regex
-
+from llm.extract_question import extract_questions
 
 def extract_messages_from_pdf(pdf_path, target_speakers):
     reader = PDFTranscriptReader(pdf_path)
@@ -28,6 +28,12 @@ def extract_messages_from_pdf(pdf_path, target_speakers):
             q.get("message", q.get("question", "")) for q in all_question_messages
         ]
     ]
+    
+    # Extract questions with LLM
+    llm_questions = extract_questions(non_question_messages)
+    print("LLM Questions:", llm_questions)
+    
+    all_question_messages = all_question_messages + llm_questions
     
     # Save all messages to a single JSON file
     output_filename = "data/transcript_messages.json"
