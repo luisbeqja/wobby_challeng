@@ -2,7 +2,7 @@
   <div class="w-full max-w-2xl mx-0 p-4">
     <div class="card bg-base-100 shadow-xl">
       <div class="card-body">
-        <h2 class="card-title text-2xl font-bold mb-4 text-center justify-center">Upload Your Conversation</h2>
+        <h2 class="card-title text-2xl font-bold mb-4 text-center justify-center">Extract messages</h2>
         
         <div class="form-control w-full mb-6">
           <textarea

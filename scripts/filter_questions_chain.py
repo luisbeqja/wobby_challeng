@@ -8,7 +8,7 @@ import json
 from typing import List, Dict
 
 
-def filter_questions_chain(pdf_path: str, target_speakers: List[str]) -> List[Dict[str, str]]:
+def filter_questions_chain(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """
     Extract messages and questions from a PDF transcript using multiple methods.
     
@@ -19,8 +19,6 @@ def filter_questions_chain(pdf_path: str, target_speakers: List[str]) -> List[Di
     Returns:
         List of non-question messages
     """
-    # Extract messages from PDF
-    messages = extract_messages_from_pdf(pdf_path, target_speakers)
     
     
     # Extract questions using regex and spaCy
@@ -55,4 +53,4 @@ def filter_questions_chain(pdf_path: str, target_speakers: List[str]) -> List[Di
     with open(output_filename, "w", encoding="utf-8") as f:
         json.dump(all_question_messages, f, indent=2, ensure_ascii=False)
          
-    return non_question_messages 
+    return all_question_messages 

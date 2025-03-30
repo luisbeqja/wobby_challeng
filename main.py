@@ -30,8 +30,6 @@ def upload_text():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
-
 @app.route('/upload/pdf', methods=['POST'])
 def upload_file():
     try:
@@ -60,6 +58,15 @@ def upload_file():
         
 
         
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/analyze', methods=['POST'])
+def analyze():
+    try:
+        data = request.json
+        questions = filter_questions_chain(data['messages'])
+        return jsonify({"message": "Analysis requested", "data": questions}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

@@ -88,7 +88,6 @@ watch(() => props.initialData, (newData) => {
   if (newData) {
     messages.value = newData.results.map((q: any) => ({
       ...q,
-      isConfirmed: false
     }))
     isLoading.value = false
   }
@@ -107,16 +106,8 @@ const analyzeWithAI = async () => {
       },
       body: JSON.stringify({ messages: messages.value })
     })
+    const data = await response.json()
 
-    if (response.ok) {
-      const data = await response.json()
-      messages.value = data.map((q: Question) => ({
-        ...q,
-        isConfirmed: false
-      }))
-    } else {
-      throw new Error('Failed to analyze messages')
-    }
   } catch (error) {
     console.error('Error analyzing messages:', error)
     alert('Error analyzing messages. Please try again.')
