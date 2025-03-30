@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-2xl mx-auto p-4">
+  <div class="w-full max-w-2xl mx-0 p-4">
     <div class="card bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title text-2xl font-bold mb-4 text-center justify-center">Upload Your Conversation</h2>
@@ -10,8 +10,16 @@
             class="textarea textarea-bordered h-32 w-full"
             placeholder="Paste your conversation here..."
             @paste="handleTextPaste"
+            :disabled="isLoading"
           ></textarea>
-          <button class="btn btn-primary mt-4 float-right" @click="uploadText">Upload Text</button>
+          <button 
+            class="btn btn-primary mt-4 float-right" 
+            @click="uploadText"
+            :disabled="isLoading || !textInput.trim()"
+          >
+            <span class="loading loading-spinner" v-if="isLoading"></span>
+            {{ isLoading ? 'Processing...' : 'Upload Text' }}
+          </button>
         </div>
 
         <div class="divider">OR</div>
@@ -23,13 +31,15 @@
               accept=".pdf"
               @change="handleFileUpload"
               class="file-input file-input-bordered w-full"
+              :disabled="isLoading"
             />
             <button
               class="btn btn-primary"
               @click="uploadFile"
-              :disabled="!selectedFile"
+              :disabled="isLoading || !selectedFile"
             >
-              Upload PDF
+              <span class="loading loading-spinner" v-if="isLoading"></span>
+              {{ isLoading ? 'Processing...' : 'Upload PDF' }}
             </button>
           </div>
           <label class="label" v-if="selectedFile">
@@ -46,6 +56,7 @@ import { ref } from 'vue'
 
 const textInput = ref('')
 const selectedFile = ref<File | null>(null)
+const isLoading = ref(false)
 
 const handleTextPaste = (event: ClipboardEvent) => {
   const clipboardData = event.clipboardData
@@ -62,6 +73,7 @@ const uploadText = async () => {
         return
     }
 
+    isLoading.value = true
     try {
         const response = await fetch('http://localhost:5000/upload/text', {
             method: 'POST',
@@ -72,8 +84,9 @@ const uploadText = async () => {
         })
 
         if (response.ok) {
+            const data = await response.json()
             console.log('Text uploaded successfully')
-            // Clear the input after successful upload
+            emit('upload-success', data)
             textInput.value = ''
         } else {
             const errorData = await response.json()
@@ -83,8 +96,9 @@ const uploadText = async () => {
     } catch (error) {
         console.error('Error uploading text:', error)
         alert('Error uploading text. Please try again.')
+    } finally {
+        isLoading.value = false
     }
-    emit('upload-text', textInput.value)
 }
 
 const handleFileUpload = (event: Event) => {
@@ -101,6 +115,7 @@ const handleFileUpload = (event: Event) => {
 const uploadFile = async () => {
   if (!selectedFile.value) return
 
+  isLoading.value = true
   try {
     const formData = new FormData()
     formData.append('file', selectedFile.value)
@@ -111,8 +126,9 @@ const uploadFile = async () => {
     })
 
     if (response.ok) {
+      const data = await response.json()
       console.log('File uploaded successfully')
-      // Clear the file input after successful upload
+      emit('upload-success', data)
       selectedFile.value = null
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
       if (fileInput) fileInput.value = ''
@@ -124,10 +140,12 @@ const uploadFile = async () => {
   } catch (error) {
     console.error('Error uploading file:', error)
     alert('Error uploading file. Please try again.')
+  } finally {
+    isLoading.value = false
   }
 }
 
-const emit = defineEmits(['text-input', 'file-upload', 'upload-text'])
+const emit = defineEmits(['text-input', 'file-upload', 'upload-text', 'upload-success'])
 </script>
 
 <style scoped>

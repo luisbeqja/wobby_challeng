@@ -2,7 +2,7 @@ from scripts.filter_questions_chain import filter_questions_chain
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-
+from scripts.extract_pdf_text import extract_messages_from_pdf
 app = Flask(__name__)
 CORS(app)
 
@@ -48,11 +48,17 @@ def upload_file():
         filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(filename)
         
+        # Extract text from PDF
+        text = extract_messages_from_pdf(filename, ['Stefan Debois', 'Bruno Pauwels'])
+        
         return jsonify({
             "message": "File uploaded successfully",
             "filename": file.filename,
-            "path": filename
+            "path": filename,
+            "results": text
         }), 200
+        
+
         
     except Exception as e:
         return jsonify({"error": str(e)}), 500

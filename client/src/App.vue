@@ -1,12 +1,32 @@
 <script setup lang="ts">
 import InputHandling from './components/InputHandling.vue'
 import SideMenu from './components/SideMenu.vue'
+import QuestionPreview from './components/QuestionPreview.vue'
+import { ref } from 'vue'
+
+const showQuestionPreview = ref(false)
+const uploadedData = ref(null)
+
+const handleUploadSuccess = (data: any) => {
+  uploadedData.value = data
+  showQuestionPreview.value = true
+}
 </script>
 
 <template>
   <div class="flex">
     <SideMenu />
-    <InputHandling />
+    <div class="flex-1 bg-white min-h-screen">
+      <InputHandling 
+        v-if="!showQuestionPreview" 
+        @upload-success="handleUploadSuccess" 
+      />
+      <QuestionPreview 
+        v-else
+        :initial-data="uploadedData"
+        @back="showQuestionPreview = false" 
+      />
+    </div>
   </div>
 </template>
 
