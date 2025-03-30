@@ -2,7 +2,7 @@
   <div class="h-screen w-80  bg-base-100 text-white flex flex-col">
 
     <div class="p-4">
-      <h2 class="text-2xl font-bold mb-8 px-4">Menu</h2>
+      <h2 class="text-2xl font-bold mb-8 px-4">🧐 Dynamic FAQ</h2>
     </div>
 
     <nav class="flex-1">
