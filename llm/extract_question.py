@@ -16,7 +16,7 @@ def extract_questions(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
     {
         "speaker": "Speaker Name",
         "timestamp": "HH:MM:SS",
-        "question": "The extracted question"
+        "message": "The extracted question"
     }
     
     Messages:

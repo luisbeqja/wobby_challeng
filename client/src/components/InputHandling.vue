@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-
+import router from '../router'
 const textInput = ref('')
 const selectedFile = ref<File | null>(null)
 const isLoading = ref(false)
@@ -128,7 +128,8 @@ const uploadFile = async () => {
     if (response.ok) {
       const data = await response.json()
       console.log('File uploaded successfully')
-      emit('upload-success', data)
+      localStorage.setItem('questionPreviewData', JSON.stringify(data))
+      router.push('/question-preview')
       selectedFile.value = null
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
       if (fileInput) fileInput.value = ''

@@ -6,7 +6,7 @@
           <h2 class="card-title text-2xl font-bold">Question Preview</h2>
           <button 
             class="btn btn-ghost btn-sm"
-            @click="$emit('back')"
+            @click="$router.push('/')"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L4.414 9H17a1 1 0 110 2H4.414l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -65,38 +65,45 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 interface Question {
-    message: string;
-    speaker: string;
-    timestamp: string;
-    isConfirmed?: boolean;
+  message: string;
+  speaker: string;
+  timestamp: string;
+  isConfirmed?: boolean;
 }
 
-const props = defineProps<{
-  initialData: any;
-}>()
-
+const router = useRouter()
 const messages = ref<Question[]>([])
 const isLoading = ref(true)
 const isAnalyzing = ref(false)
 
-// Watch for changes in initialData prop
-watch(() => props.initialData, (newData) => {
-  console.log('Initial data received:', newData)
-  if (newData) {
-    messages.value = newData.results.map((q: any) => ({
-      ...q,
-    }))
-    isLoading.value = false
-  }
-}, { immediate: true })
+onMounted(() => {
+  // Get data from localStorage
+  const storedData = localStorage.getItem('questionPreviewData')
+  if (storedData) {
+    try {
+      const data = JSON.parse(storedData)
+      messages.value = data.results.map((q: any) => ({
+        ...q,
+      }))
+      isLoading.value = false
 
+      localStorage.removeItem('questionPreviewData')
+    } catch (error) {
+      console.error('Error parsing stored data:', error)
+      router.push('/')
+    }
+  } else {
+    router.push('/')
+  }
+})
 
 const analyzeWithAI = async () => {
   if (messages.value.length === 0) return
-  
+  localStorage.removeItem('questionAnalysisData')
   isAnalyzing.value = true
   try {
     const response = await fetch('http://localhost:5000/analyze', {
@@ -107,7 +114,8 @@ const analyzeWithAI = async () => {
       body: JSON.stringify({ messages: messages.value })
     })
     const data = await response.json()
-
+    localStorage.setItem('questionAnalysisData', JSON.stringify(data))
+    router.push('/')
   } catch (error) {
     console.error('Error analyzing messages:', error)
     alert('Error analyzing messages. Please try again.')
@@ -115,10 +123,7 @@ const analyzeWithAI = async () => {
     isAnalyzing.value = false
   }
 }
-
-defineEmits(['back'])
 </script>
-
 
 <style scoped>
 .question-preview {

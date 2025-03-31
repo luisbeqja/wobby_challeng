@@ -57,7 +57,7 @@ def extract_questions_from_messages_spacy(messages):
                     questions.append({
                         "speaker": entry["speaker"],
                         "timestamp": entry["timestamp"],
-                        "question": sent.text.strip()
+                        "message": sent.text.strip()
                     })
         return questions
 
