@@ -1,6 +1,5 @@
 <template>
   <div class="h-screen w-80  bg-base-100 text-white flex flex-col">
-
     <div class="p-4">
       <h2 class="text-2xl font-bold mb-8 px-4">🧐 Dynamic FAQ</h2>
     </div>
@@ -20,16 +19,16 @@
           </router-link>
         </li>
         <li>
-          <a 
-            href="#analytics" 
+          <router-link 
+            to="/bar-chart" 
             class="flex items-center gap-4 text-white hover:bg-[#1a2332] rounded-lg p-3"
-            :class="{ 'bg-[#1a2332]': currentPath === '/analytics' }"
+            :class="{ 'bg-[#1a2332]': currentPath === '/bar-chart' }"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
             Chart
-          </a>
+          </router-link>
         </li>
         <li>
           <router-link 

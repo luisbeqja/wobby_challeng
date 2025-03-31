@@ -3,9 +3,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from scripts.extract_pdf_text import extract_messages_from_pdf
+from llm.categorize_questions import categorize_questions_with_options_list
 app = Flask(__name__)
 CORS(app)
 
+available_categories = ["Text-to-SQL", "Data Analysis", "Surveys", "Technical Questions", "General Discussion", "Pricing"]
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
 if not os.path.exists(UPLOAD_FOLDER):
@@ -66,7 +68,8 @@ def analyze():
     try:
         data = request.json
         questions = filter_questions_chain(data['messages'])
-        return jsonify({"message": "Analysis requested", "data": questions}), 200
+        categorized_questions = categorize_questions_with_options_list(questions, available_categories)
+        return jsonify({"message": "Analysis requested", "data": categorized_questions}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

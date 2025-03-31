@@ -41,7 +41,7 @@
           <td>{{ question.speaker }}</td>
           <td>{{ question.timestamp }}</td>
           <td>
-            <div class="badge badge-primary">{{ question.category }}</div>
+            <div :class="question.category === 'Other' ? 'badge badge-error' : 'badge badge-primary'">{{ question.category }}</div>
           </td>
         </tr>
       </tbody>
