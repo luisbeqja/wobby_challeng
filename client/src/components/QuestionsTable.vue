@@ -1,7 +1,7 @@
 <template>
   <div class="w-full overflow-x-auto p-4 rounded-lg h-screen">
     <h1 class="text-2xl font-bold mb-4 text-base-100">Questions list</h1>
-    <table class="table w-full bg-base-100 p-4 h-full overflow-y-auto">
+    <table v-if="questions.length > 0" class="table w-full bg-base-100 p-4 h-full overflow-y-auto">
       <thead>
         <tr>
           <th class="cursor-pointer" @click="sortBy('message')">
@@ -46,7 +46,9 @@
         </tr>
       </tbody>
     </table>
-
+    <div v-else class="flex justify-center items-center h-full">
+        <router-link to="/new-analysis" class="btn btn-primary">Start new analysis</router-link>
+    </div>
     <QuestionOverlay
       v-model="showOverlay"
       :question="selectedQuestion"
@@ -80,10 +82,10 @@ const selectedQuestion = ref<Question | null>(null);
 
 onMounted(() => {
   const storedData = localStorage.getItem('questionAnalysisData');
+  console.log(storedData);
   if (storedData) {
     try {
       const data = JSON.parse(storedData).data;
-      console.log(data);
       questions.value = data.map((q: any) => ({
         ...q,
       }));

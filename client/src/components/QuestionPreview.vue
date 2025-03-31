@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full max-w-2xl mx-0 p-4">
+  <div class="w-full max-w-4xl mx-0 p-4">
     <div class="question-preview overflow-y-auto card bg-base-100 shadow-xl">
       <div class="card-body">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="card-title text-2xl font-bold">Question Preview</h2>
+          <h2 class="card-title text-2xl font-bold">Messages Preview</h2>
           <button 
             class="btn btn-ghost btn-sm"
             @click="$router.push('/')"

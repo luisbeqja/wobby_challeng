@@ -4,10 +4,12 @@ from flask_cors import CORS
 import os
 from scripts.extract_pdf_text import extract_messages_from_pdf
 from llm.categorize_questions import categorize_questions_with_options_list
+from llm.leaderboard_generation import group_and_rank_questions
+
 app = Flask(__name__)
 CORS(app)
 
-available_categories = ["Text-to-SQL", "Data Analysis", "Surveys", "Technical Questions", "General Discussion", "Pricing"]
+available_categories = ["Text-to-SQL", "Data Analysis", "Surveys", "Technical Questions", "General Discussion", "Pricing", "Integration"]
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
 if not os.path.exists(UPLOAD_FOLDER):
@@ -73,6 +75,14 @@ def analyze():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/leaderboard', methods=['POST'])
+def leaderboard():
+    try:
+        data = request.json
+        leaderboard = group_and_rank_questions(data['messages'])
+        return jsonify({"message": "Leaderboard requested", "data": leaderboard}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 def main():
     print(f"Files will be uploaded to: {UPLOAD_FOLDER}")
