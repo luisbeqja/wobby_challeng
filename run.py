@@ -19,18 +19,17 @@ def build_client():
         sys.exit(1)
 
 def main():
-    # Build the client first
-    build_client()
-    
     # Get port from environment variable or use default
     port = int(os.getenv('PORT', 5000))
     
     # Check if we're in production
     if os.getenv('FLASK_ENV') == 'production':
-        # Use gunicorn in production
+        # In production, assume client is already built
+        print("Starting production server...")
         subprocess.run(['gunicorn', 'main:app', '--bind', f'0.0.0.0:{port}'])
     else:
-        # Use Flask development server in development
+        # In development, build client and use Flask server
+        build_client()
         print("Starting Flask development server...")
         app.run(host='0.0.0.0', port=port, debug=False)
 
