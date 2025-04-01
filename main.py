@@ -6,7 +6,10 @@ from scripts.extract_pdf_text import extract_messages_from_pdf, filter_messages_
 from llm.categorize_questions import categorize_questions_with_options_list
 from llm.leaderboard_generation import group_and_rank_questions
 
-app = Flask(__name__, static_folder='client/dist', static_url_path='')
+# Get the absolute path to the client/dist directory
+CLIENT_DIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'client', 'dist')
+
+app = Flask(__name__, static_folder=CLIENT_DIST, static_url_path='')
 CORS(app)
 
 available_categories = ["Text-to-SQL", "Data Analysis", "Surveys", "Technical Questions", "General Discussion", "Pricing", "Integration"]
@@ -25,7 +28,9 @@ def serve():
 # Handle client-side routing
 @app.route('/<path:path>')
 def static_proxy(path):
-    return send_from_directory(app.static_folder, path)
+    if os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, 'index.html')
 
 # API Routes
 @app.route('/api/upload/text', methods=['POST'])
