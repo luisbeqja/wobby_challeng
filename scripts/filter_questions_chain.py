@@ -43,14 +43,5 @@ def filter_questions_chain(messages: List[Dict[str, str]]) -> List[Dict[str, str
     
     # Combine all questions
     all_question_messages = all_question_messages + llm_questions
-    
-    # Save results
-    output_filename = "data/transcript_messages.json"
-    with open(output_filename, "w", encoding="utf-8") as f:
-        json.dump(non_question_messages, f, indent=2, ensure_ascii=False) 
-    
-    output_filename = "data/transcript_messages_questions.json"
-    with open(output_filename, "w", encoding="utf-8") as f:
-        json.dump(all_question_messages, f, indent=2, ensure_ascii=False)
          
     return all_question_messages 

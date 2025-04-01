@@ -34,7 +34,6 @@ ENV/
 .DS_Store
 
 # Project specific
-data/
 *.pdf
 *.json
 !package.json
