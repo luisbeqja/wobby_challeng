@@ -20,7 +20,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Serve the React app
+
 @app.route('/')
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
