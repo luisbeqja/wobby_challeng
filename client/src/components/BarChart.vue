@@ -93,7 +93,7 @@ const isLoading = ref(true);
 
 const fetchLeaderboardData = async () => {
   isLoading.value = true;
-  const response = await fetch('http://localhost:5000/leaderboard', {
+  const response = await fetch('api/leaderboard', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

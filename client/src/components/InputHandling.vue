@@ -75,7 +75,7 @@ const uploadText = async () => {
 
     isLoading.value = true
     try {
-        const response = await fetch('http://localhost:5000/upload/text', {
+        const response = await fetch('api/upload/text', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ const uploadFile = async () => {
     const formData = new FormData()
     formData.append('file', selectedFile.value)
     
-    const response = await fetch('http://localhost:5000/upload/pdf', {
+    const response = await fetch('api/upload/pdf', {
       method: 'POST',
       body: formData
     })

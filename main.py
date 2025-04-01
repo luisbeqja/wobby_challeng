@@ -1,12 +1,12 @@
 from scripts.filter_questions_chain import filter_questions_chain
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 from scripts.extract_pdf_text import extract_messages_from_pdf, filter_messages_by_speakers, parse_transcript
 from llm.categorize_questions import categorize_questions_with_options_list
 from llm.leaderboard_generation import group_and_rank_questions
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='client/dist', static_url_path='')
 CORS(app)
 
 available_categories = ["Text-to-SQL", "Data Analysis", "Surveys", "Technical Questions", "General Discussion", "Pricing", "Integration"]
@@ -17,7 +17,18 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/upload/text', methods=['POST'])
+# Serve the React app
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
+
+# Handle client-side routing
+@app.route('/<path:path>')
+def static_proxy(path):
+    return send_from_directory(app.static_folder, path)
+
+# API Routes
+@app.route('/api/upload/text', methods=['POST'])
 def upload_text():
     try:
         data = request.json 
@@ -46,7 +57,7 @@ def upload_text():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/upload/pdf', methods=['POST'])
+@app.route('/api/upload/pdf', methods=['POST'])
 def upload_file():
     try:
         if 'file' not in request.files:
@@ -71,13 +82,10 @@ def upload_file():
             "path": filename,
             "results": text
         }), 200
-        
-
-        
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/analyze', methods=['POST'])
+@app.route('/api/analyze', methods=['POST'])
 def analyze():
     try:
         data = request.json
@@ -87,7 +95,7 @@ def analyze():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/leaderboard', methods=['POST'])
+@app.route('/api/leaderboard', methods=['POST'])
 def leaderboard():
     try:
         data = request.json
