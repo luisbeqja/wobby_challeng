@@ -28,7 +28,7 @@ def categorize_question_with_options(question_data, available_categories):
         if category in available_categories:
             return category
         else:
-            return "Other"  # Or handle invalid categories as needed
+            return "Other"
     except Exception as e:
         print(f"Error processing question: {e}")
         return "Unknown"
@@ -45,6 +45,3 @@ def categorize_questions_with_options_list(questions, available_categories):
             "category": category
         })
     return categorized_questions
-
-
-available_categories = ["Text-to-SQL", "Data Analysis", "Surveys", "Technical Questions", "General Discussion"] # Add your needed categories.

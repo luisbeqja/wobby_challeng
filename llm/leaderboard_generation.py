@@ -4,14 +4,14 @@ import google.generativeai as genai
 
 api_key = os.getenv('GEMINI_API_KEY')
 
-# Configure the API
+
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 def group_and_rank_questions(messages):
     """Groups similar questions and ranks them by frequency using a single prompt."""
     try:
-        # Construct the prompt for Gemini Pro
+        
         prompt = f"""
         Group the following questions based on semantic similarity. 
         Return ONLY a JSON array of arrays, where each inner array contains similar questions.

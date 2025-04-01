@@ -5,8 +5,6 @@ from typing import List, Dict
 
 
 api_key = os.getenv('GEMINI_API_KEY')
-
-# Configure the API
 genai.configure(api_key=api_key)
 
 def extract_questions(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:

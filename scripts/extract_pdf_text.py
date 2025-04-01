@@ -49,7 +49,7 @@ def parse_transcript(text: str) -> List[Dict[str, str]]:
     for match in pattern.finditer(text):
         speaker = match.group("speaker").strip()
         timestamp = match.group("timestamp").strip()
-        message = match.group("message").strip().replace("\n", " ")  # collapse newlines within message
+        message = match.group("message").strip().replace("\n", " ")
         messages.append({
             "speaker": speaker,
             "timestamp": timestamp,
@@ -69,11 +69,9 @@ def filter_messages_by_speakers(messages: List[Dict[str, str]], target_speakers:
     Returns:
         List of messages from the specified speakers
     """
-    # Convert single speaker to list for consistent processing
     if isinstance(target_speakers, str):
         target_speakers = [target_speakers]
         
-    # Convert all speakers to lowercase for case-insensitive comparison
     target_speakers = [speaker.lower() for speaker in target_speakers]
     
     return [
