@@ -2,7 +2,7 @@ from scripts.filter_questions_chain import filter_questions_chain
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-from scripts.extract_pdf_text import extract_messages_from_pdf, filter_messages_by_speakers
+from scripts.extract_pdf_text import extract_messages_from_pdf, filter_messages_by_speakers, parse_transcript
 from llm.categorize_questions import categorize_questions_with_options_list
 from llm.leaderboard_generation import group_and_rank_questions
 
@@ -21,9 +21,18 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def upload_text():
     try:
         data = request.json 
-        text = data.get('text')
+        if not data or 'text' not in data:
+            return jsonify({"error": "No text provided in request"}), 400
+            
+        text = data['text']
+        if not isinstance(text, str):
+            return jsonify({"error": "Text must be a string"}), 400
+            
         filename = os.path.join(app.config['UPLOAD_FOLDER'], 'questions.txt')
-        messages = filter_messages_by_speakers(text, ['Stefan Debois', 'Bruno Pauwels'])
+        
+        # Parse the text into messages first
+        messages = parse_transcript(text)
+        filtered_messages = filter_messages_by_speakers(messages, ['Stefan Debois', 'Bruno Pauwels'])
         
         with open(filename, 'w') as f:
             f.write(text)
@@ -32,7 +41,7 @@ def upload_text():
             "message": "File uploaded successfully",
             "filename": 'questions.txt',
             "path": filename,
-            "results": messages
+            "results": filtered_messages
         }), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

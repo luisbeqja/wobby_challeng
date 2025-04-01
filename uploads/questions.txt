@@ -1,0 +1,79 @@
+Tove Staaf - 00:08 Just a moment.
+Stefan Debois - 00:10
+Anyways, we have the note taker here.
+Tove Staaf - 00:13
+Yes, note taker. And our guests are also here. Do you manage to connect to the Internet or. So do it in English
+because.
+Stefan Debois - 00:32
+But you can do it in Dutch. I will treat it as a Dutch. Stefan Debois - 00:36
+English is perfect.
+Tove Staaf - 00:38
+Oh, don't let me ruin it for you guys.
+Stefan Debois - 00:43
+Yeah, it's.
+Tove Staaf - 01:55 I'm also starting recording.
+Stefan Debois - 02:23
+So we speak English.
+Tove Staaf - 02:25 Dutch, English.
+Stefan Debois - 02:41
+All right.
+Tove Staaf - 02:51
+Okay. Maybe just introduction. Can you hear me well?
+Stefan Debois - 02:59
+Perfect.
+Okay. Because the Jabra is not working inside my computer. But okay, so we have people from Robby, AI and Robbie is a company that we learned to know. I mean, I think the company that you're working for with Wonka already mentioned you guys also. And then I met you at the event a couple of weeks ago. So we started talking about. About different things, but also about your product. So that's basically AI for data analytics. But you will be able to explain it more in detail and better than myself. But it's in that context that we have invited them. So we at point of Pro are looking to enable AI for the data that our customer. Customers collect with our assessments. So we now have the normal dashboards. We have also dashboard builder for which we use Luzmo, the form of commodity IO. Yeah.
+Tove Staaf - 04:16
+So that allows our customers to create their own dashboards. In addition to that, we see that a lot of customers are not that. Yeah. To create your own dashboards, you need not to be a developer, but you have to have a real good understanding of the underlying data structure. People don't have that capability. So a kind of chatbot that you can use to inquiry the data for simple and maybe also not so simple questions would be very useful. And that's also on the planning of our roadmap for this year.
+Stefan Debois - 04:59
+Okay, amazing.
+Tove Staaf - 03:01
+
+Tove Staaf - 05:12
+So we have. So we have Torvay, our new product manager, and Bruno, our solution architect who is also doing AI within the products like the MVPs and playing around and testing with new technologies to incorporate or not, I mean, in our products. So that's a bit the reason why we have invited them. So the goal for today is that you give like a demo that we have a clear understanding of what your product is capable of in the context of our requirements. Okay, so Tove and we know do you have to add something to that? I mean, we are very excited to.
+Stefan Debois - 06:06
+Have an internal AI solution.
+Tove Staaf - 06:08 So I am very excited to see.
+Stefan Debois - 06:10
+What you're going to show to us.
+Bruno Pauwels - 06:13 Right.
+Stefan Debois - 06:15
+Okay. I will also introduce myself. I'm Amra. I'm the co founder and CEO of Wobi were founded in 2023 which is almost exactly two years ago. My background a little bit. I used to be a data journalist at broadcasting and it's actually there the idea was first started I wanted a tool with which I can easily analyze complex data and make news stories about it. But this idea grew and we saw that the use cases were much more broader. And so in the last two years were obsessed about pretty much one problem like how can we make data analytics AI accurate, reliable and consistent.Tove Staaf - 00:08 Just a moment.
+Stefan Debois - 00:10
+Anyways, we have the note taker here.
+Tove Staaf - 00:13
+Yes, note taker. And our guests are also here. Do you manage to connect to the Internet or. So do it in English
+because.
+Stefan Debois - 00:32
+But you can do it in Dutch. I will treat it as a Dutch. Stefan Debois - 00:36
+English is perfect.
+Tove Staaf - 00:38
+Oh, don't let me ruin it for you guys.
+Stefan Debois - 00:43
+Yeah, it's.
+Tove Staaf - 01:55 I'm also starting recording.
+Stefan Debois - 02:23
+So we speak English.
+Tove Staaf - 02:25 Dutch, English.
+Stefan Debois - 02:41
+All right.
+Tove Staaf - 02:51
+Okay. Maybe just introduction. Can you hear me well?
+Stefan Debois - 02:59
+Perfect.
+Okay. Because the Jabra is not working inside my computer. But okay, so we have people from Robby, AI and Robbie is a company that we learned to know. I mean, I think the company that you're working for with Wonka already mentioned you guys also. And then I met you at the event a couple of weeks ago. So we started talking about. About different things, but also about your product. So that's basically AI for data analytics. But you will be able to explain it more in detail and better than myself. But it's in that context that we have invited them. So we at point of Pro are looking to enable AI for the data that our customer. Customers collect with our assessments. So we now have the normal dashboards. We have also dashboard builder for which we use Luzmo, the form of commodity IO. Yeah.
+Tove Staaf - 04:16
+So that allows our customers to create their own dashboards. In addition to that, we see that a lot of customers are not that. Yeah. To create your own dashboards, you need not to be a developer, but you have to have a real good understanding of the underlying data structure. People don't have that capability. So a kind of chatbot that you can use to inquiry the data for simple and maybe also not so simple questions would be very useful. And that's also on the planning of our roadmap for this year.
+Stefan Debois - 04:59
+Okay, amazing.
+Tove Staaf - 03:01
+
+Tove Staaf - 05:12
+So we have. So we have Torvay, our new product manager, and Bruno, our solution architect who is also doing AI within the products like the MVPs and playing around and testing with new technologies to incorporate or not, I mean, in our products. So that's a bit the reason why we have invited them. So the goal for today is that you give like a demo that we have a clear understanding of what your product is capable of in the context of our requirements. Okay, so Tove and we know do you have to add something to that? I mean, we are very excited to.
+Stefan Debois - 06:06
+Have an internal AI solution.
+Tove Staaf - 06:08 So I am very excited to see.
+Stefan Debois - 06:10
+What you're going to show to us.
+Bruno Pauwels - 06:13 Right.
+Stefan Debois - 06:15
+Okay. I will also introduce myself. I'm Amra. I'm the co founder and CEO of Wobi were founded in 2023 which is almost exactly two years ago. My background a little bit. I used to be a data journalist at broadcasting and it's actually there the idea was first started I wanted a tool with which I can easily analyze complex data and make news stories about it. But this idea grew and we saw that the use cases were much more broader. And so in the last two years were obsessed about pretty much one problem like how can we make data analytics AI accurate, reliable and consistent.
