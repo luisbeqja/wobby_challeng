@@ -85,8 +85,8 @@ const uploadText = async () => {
 
         if (response.ok) {
             const data = await response.json()
-            console.log('Text uploaded successfully')
-            emit('upload-success', data)
+            localStorage.setItem('questionPreviewData', JSON.stringify(data))
+            router.push('/question-preview')
             textInput.value = ''
         } else {
             const errorData = await response.json()
